@@ -2,38 +2,42 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import Note from './pages/Note';
-import Persona from './pages/Persona';
-import Prodotto from './pages/Prodotto';
-import Dashboard from './pages/Dashboard';
-
 
 import PrivateRoute from './components/PrivateRoute';
 import { isAuthenticated } from './utils/auth';
 
 
-
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import DashBoard from './pages/Dashboard';
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    
     <BrowserRouter>
+
       <Routes>
         
         <Route path="/" element={<App />} />
-        <Route path="/note" element={<Note />} />
-        <Route path='/persona' element={<Persona/>} />
-        <Route path='/prodotto' element={<Prodotto/>}/>
+
         
         {/*ROTTE PROTETTE */}
+
         <Route element={<PrivateRoute />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-          {/* Altre pagine protette qui */}
+          
+          <Route path="/dashboard" element={<DashBoard />} />
+
+          {/* Il resto delle rotte */}
+
         </Route>
       
       </Routes>
+
     </BrowserRouter>
+    
   </React.StrictMode>
 );
 

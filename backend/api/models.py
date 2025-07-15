@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 
 class Task(models.Model):
 
@@ -12,10 +12,10 @@ class Task(models.Model):
 
     scadenza = models.DateField(auto_created=False , auto_now_add=False)
 
+    user = models.ForeignKey(User , on_delete=models.CASCADE , related_name='task')
+
 
     def __str__(self,):
 
         return str(self.id_task) 
     
-
-
