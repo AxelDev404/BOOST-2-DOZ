@@ -12,7 +12,7 @@ function TabToDo(){
             <div className="px-4 py-10 bg-slate-300 h-auto rounded-md">
                 
 
-                <table class=" w-full ">
+                <table class=" w-full border-blue-600">
                 
                     <thead className="bg-gray-900 ">
                     

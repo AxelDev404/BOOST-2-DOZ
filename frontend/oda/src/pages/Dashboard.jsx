@@ -19,19 +19,21 @@ import TabToDo from '../components/TabToDo';
 
 
 function DashBoard() {
-  const navigate = useNavigate();
-  const [value, setValue] = useState('1');
-  const [open, setOpen] = useState(true);
+    const navigate = useNavigate();
+    const [value, setValue] = useState('1');
+    const [open, setOpen] = useState(true);
 
-  const logout = () => {
-    localStorage.removeItem('access');
-    localStorage.removeItem('refresh');
-    navigate('/');
-  };
+    const logout = () => {
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+        localStorage.removeItem('access');
+        localStorage.removeItem('refresh');
+        navigate('/');
+  
+    };
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
 
   const toggleSidebar = () => {
     setOpen(!open);
@@ -44,41 +46,46 @@ function DashBoard() {
         <Box sx={{ display: 'flex', width: '100%' }}>
 
       
-          
           <Box sx={{ width: open ? 100 : 0, overflow: 'hidden', transition: 'width 0.3s ease', borderRight: open ? 1 : 0, borderColor: 'divider', display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: '#080808', py: 2, minHeight: '100vh', gap: 2, position: 'relative' }}>
             {open ? 
             (
 
-              <>
-                <button onClick={toggleSidebar} className="mb-2 hover:text-blue-400 text-white" title="Close sidebar">
-                  <ChevronLeftIcon />
-                </button>
+                <>
 
-                <div className="py-1"></div>
-                
-                <button className="mt-auto px-4 py-2 rounded hover:bg-blue-500" title="Account">
-                  <AccountCircleIcon sx={{ fontSize: 35, color: 'whitesmoke' }} />
-                </button>
-                
-                <div className="py-3"></div>
-                <TabList orientation="vertical" onChange={handleChange} aria-label="Vertical icon tabs" sx={{ '& .MuiTab-root': { minWidth: 0, padding: '12px', color: 'white' }, '& .Mui-selected': { color: '#6495ED' } }}>
-                  <Tab className='' icon={<FormatListBulletedIcon sx={{ fontSize: 35 }} />} value="1" />
-                  <div className="py-5"></div>
-                  <Tab icon={<FormatListBulletedAddIcon sx={{ fontSize: 35 }} />} value="2" />
-                  <div className="py-5"></div>
-                  <Tab icon={<ChecklistRtlIcon sx={{ fontSize: 35 }} />} value="4" />
-                  <div className="py-5"></div>
-                  <Tab icon={<ShareIcon sx={{ fontSize: 35 }} />} value="3" />
-                  <div className="py-5"></div>
-                  <Tab icon={<BuildIcon sx={{ fontSize: 35 }} />} value="5" />
-                  <div className="py-5"></div>
-                </TabList>
-                <button onClick={logout} className="mt-auto mb-16 px-4 py-2 bg-blue-600 rounded hover:bg-red-500" title="Logout">
-                  <LogoutIcon sx={{ fontSize: 35 }} />
-                </button>
-              </>
+                    <button onClick={toggleSidebar} className="mb-2 hover:text-blue-400 text-white" title="Close sidebar">
+                        <ChevronLeftIcon />
+                    </button>
+
+                    <div className="py-1"></div>
+                    
+                    <button className="mt-auto px-4 py-2 rounded hover:bg-blue-500" title="Account">
+                        <AccountCircleIcon sx={{ fontSize: 35, color: 'whitesmoke' }} />
+                    </button>
+                    
+                    <div className="py-3"></div>
+                    
+                    <TabList orientation="vertical" onChange={handleChange} aria-label="Vertical icon tabs" sx={{ '& .MuiTab-root': { minWidth: 0, padding: '12px', color: 'white' }, '& .Mui-selected': { color: '#6495ED' } }}>
+                    
+                        <Tab className='' icon={<FormatListBulletedIcon sx={{ fontSize: 35 }} />} title='view tasks' value="1" />
+                        <div className="py-5"></div>
+                        <Tab icon={<FormatListBulletedAddIcon sx={{ fontSize: 35 }} />} title='add tasks' value="2" />
+                        <div className="py-5"></div>
+                        <Tab icon={<ChecklistRtlIcon sx={{ fontSize: 35 }} />} title='status tasks' value="4" />
+                        <div className="py-5"></div>
+                        <Tab icon={<ShareIcon sx={{ fontSize: 35 }} />} title='share tasks' value="3" />
+                        <div className="py-5"></div>
+                        <Tab icon={<BuildIcon sx={{ fontSize: 35 }} />} title='modify tasks' value="5" />
+                        <div className="py-5"></div>
+                        
+                    </TabList>
+                    
+                    <button onClick={logout} className="mt-auto mb-16 px-4 py-2 bg-blue-600 rounded hover:bg-red-500" title="Logout">
+                        <LogoutIcon sx={{ fontSize: 35 }} />
+                    </button>
+              
+                </>
            
-           ) : null}
+            ) : null}
          
           </Box>
            

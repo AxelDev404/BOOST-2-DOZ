@@ -7,6 +7,7 @@ from .models import Task
 from .serializers import TaskSerialized
 
 
+
 @api_view(['GET'])
 def get_todo(request):
 
