@@ -15,6 +15,9 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
+import TabToDo from '../components/TabToDo';
+
+
 function DashBoard() {
   const navigate = useNavigate();
   const [value, setValue] = useState('1');
@@ -35,7 +38,7 @@ function DashBoard() {
   };
 
   return (
-    <div className="bg-slate-200 min-h-screen text-black flex" style={{ position: 'relative' }}>
+    <div className="bg-black min-h-screen text-black flex" style={{ position: 'relative' }}>
       
       <TabContext value={value}>
         <Box sx={{ display: 'flex', width: '100%' }}>
@@ -43,13 +46,15 @@ function DashBoard() {
       
           
           <Box sx={{ width: open ? 100 : 0, overflow: 'hidden', transition: 'width 0.3s ease', borderRight: open ? 1 : 0, borderColor: 'divider', display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: '#080808', py: 2, minHeight: '100vh', gap: 2, position: 'relative' }}>
-            {open ? (
+            {open ? 
+            (
+
               <>
                 <button onClick={toggleSidebar} className="mb-2 hover:text-blue-400 text-white" title="Close sidebar">
                   <ChevronLeftIcon />
                 </button>
 
-                <div className="py-3"></div>
+                <div className="py-1"></div>
                 
                 <button className="mt-auto px-4 py-2 rounded hover:bg-blue-500" title="Account">
                   <AccountCircleIcon sx={{ fontSize: 35, color: 'whitesmoke' }} />
@@ -57,7 +62,7 @@ function DashBoard() {
                 
                 <div className="py-3"></div>
                 <TabList orientation="vertical" onChange={handleChange} aria-label="Vertical icon tabs" sx={{ '& .MuiTab-root': { minWidth: 0, padding: '12px', color: 'white' }, '& .Mui-selected': { color: '#6495ED' } }}>
-                  <Tab icon={<FormatListBulletedIcon sx={{ fontSize: 35 }} />} value="1" />
+                  <Tab className='' icon={<FormatListBulletedIcon sx={{ fontSize: 35 }} />} value="1" />
                   <div className="py-5"></div>
                   <Tab icon={<FormatListBulletedAddIcon sx={{ fontSize: 35 }} />} value="2" />
                   <div className="py-5"></div>
@@ -72,22 +77,45 @@ function DashBoard() {
                   <LogoutIcon sx={{ fontSize: 35 }} />
                 </button>
               </>
-            ) : null}
+           
+           ) : null}
+         
           </Box>
-          {!open && (
-            <button onClick={toggleSidebar} style={{ position: 'fixed', top: 20, left: 10, zIndex: 1000, backgroundColor: '#080808', border: 'none', padding: 8, borderRadius: 4, cursor: 'pointer' }} title="Open sidebar">
-              <MenuIcon sx={{ color: 'white', fontSize: 35 }} />
-            </button>
-          )}
-          <Box sx={{ flexGrow: 1, p: 4 }}>
-            <TabPanel value="1">Contenuto 1</TabPanel>
-            <TabPanel value="2">Contenuto 2</TabPanel>
-            <TabPanel value="3">Contenuto 3</TabPanel>
-            <TabPanel value="4">Contenuto 4</TabPanel>
-            <TabPanel value="5">Contenuto 5</TabPanel>
+           
+            {!open && (
+                <button onClick={toggleSidebar} style={{ position: 'fixed', top: 20, left: 10, zIndex: 1000, backgroundColor: '#080808', border: 'none', padding: 8, borderRadius: 4, cursor: 'pointer' }} title="Open sidebar">
+                <MenuIcon sx={{ color: 'white', fontSize: 35 }} />
+                </button>
+            )}
+         
+          <Box sx={{ flexGrow: 1, p: 0 }}>
+           
+            <TabPanel value="1">
+               <TabToDo/>
+            </TabPanel>
+            
+            <TabPanel value="2">
+                Contenuto 2
+            </TabPanel>
+            
+            <TabPanel value="3">
+                Contenuto 3
+            </TabPanel>
+            
+            <TabPanel value="4">
+                Contenuto 4
+            </TabPanel>
+            
+            <TabPanel value="5">
+                Contenuto 5
+            </TabPanel>
+         
           </Box>
+       
         </Box>
+      
       </TabContext>
+   
     </div>
   );
 }

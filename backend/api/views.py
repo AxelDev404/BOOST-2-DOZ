@@ -40,9 +40,7 @@ def post_todo(request):
 
 
 """"
-
     JSON PER TESTING
-
     {
         "titolo": "Completa il report",
         "contenuto": "Scrivere il report settimanale per il progetto X",
