@@ -30,59 +30,14 @@ function TabToDo(){
 
 
     return(
-        
-        <div className="w-auto">
+        <div className="w-full grid grid-cols-1 md:grid-cols-4 gap-2">
+            <div className="bg-black h-8 md:h-12 md:col-span-4"></div>
 
-            <div className="bg-black h-16"></div>
-
-
-            <div className="px-4 py-10 bg-slate-300 h-auto rounded-md">
-                
-
-                
-                <table className=" w-full  border-blue-600">
-                
-                    <thead className="bg-gray-900  ">
-                    
-                        <tr>
-                            
-                            <th className="text-white">Task</th>
-                            <th className="text-white">Contenuto</th>
-                            <th className="text-white">Scadenza</th>
-                            <th className="text-white">Stato</th>
-
-                        </tr>
-                    
-                    </thead>
-
-
-                    {Array.isArray(task) && task.map(task=>(
-
-                        <tbody className="bg-slate-950">
-                                        
-                            <tr key={task.id_task}  className="text-white text-center">
-                                                    
-                                <td>{task.titolo}</td>
-                                <td>{task.contenuto}</td>
-                                <td>{task.scadenza}</td>
-                                <td>{task.stato ? <CircleIcon sx={{color:'green'}}/> : <CircleIcon sx={{color:'red'}}/> }</td>
-                                                
-                            </tr>                        
-                                        
-                        </tbody>
-
-                    ))}
-                    
-
-
-                    
-
-                </table>
-
-            </div>
-            
-
-
+            {Array.isArray(task) && task.map(task => (
+                <div key={task.id} className="px-1.5 md:px-2 w-full md:h-20 h-56 bg-slate-300 rounded-sm">
+                    <h1 className="text-lg truncate py-2 px-10">Titolo: {task.titolo}</h1>
+                </div>
+            ))}
         </div>
     );
 }
