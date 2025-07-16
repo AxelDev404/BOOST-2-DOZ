@@ -14,6 +14,8 @@ class Task(models.Model):
 
     user = models.ForeignKey(User , on_delete=models.CASCADE , related_name='task')
 
+    def data_formattata(self,):
+        return self.scadenza.strftime("%d/%m/%Y")
 
     def __str__(self,):
 

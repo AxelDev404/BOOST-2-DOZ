@@ -15,6 +15,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
+import TabCreate from '../components/TabCreate';
 import TabToDo from '../components/TabToDo';
 
 
@@ -66,7 +67,7 @@ function DashBoard() {
                     
                     <TabList orientation="vertical" onChange={handleChange} aria-label="Vertical icon tabs" sx={{ '& .MuiTab-root': { minWidth: 0, padding: '12px', color: 'white' }, '& .Mui-selected': { color: '#6495ED' } }}>
                     
-                        <Tab className='' icon={<FormatListBulletedIcon sx={{ fontSize: 35 }} />} title='view tasks' value="1" />
+                        <Tab  icon={<FormatListBulletedIcon sx={{ fontSize: 35 }} />} title='view tasks' value="1" />
                         <div className="py-5"></div>
                         <Tab icon={<FormatListBulletedAddIcon sx={{ fontSize: 35 }} />} title='add tasks' value="2" />
                         <div className="py-5"></div>
@@ -102,7 +103,7 @@ function DashBoard() {
             </TabPanel>
             
             <TabPanel value="2">
-                Contenuto 2
+                <TabCreate/>
             </TabPanel>
             
             <TabPanel value="3">

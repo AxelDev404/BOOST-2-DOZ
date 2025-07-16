@@ -15,6 +15,8 @@ from datetime import timedelta
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+DATE_FORMAT = "d/m/Y"
+DATETIME_FORMAT = "d/m/Y H:i"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -33,12 +35,28 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),  # es. 15 minuti
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),     # es. 7 giorni
-    'ROTATE_REFRESH_TOKENS': True,                   # (opzionale)
-    'BLACKLIST_AFTER_ROTATION': True,                # (opzionale)
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+    
+    'AUTH_TOKEN_CLASSES': (
+        'rest_framework_simplejwt.tokens.AccessToken',
+    ),
+    'TOKEN_TYPE_CLAIM': 'token_type',
+    
+    'JTI_CLAIM': 'jti',
+    'TOKEN_USER_CLASS': 'rest_framework_simplejwt.models.TokenUser',
+    
+    'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
+    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
-
 
 # Application definition
 
@@ -52,11 +70,12 @@ INSTALLED_APPS = [
     'api',
     'rest_framework', 
     'corsheaders',
+    'rest_framework_simplejwt',
 
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware', 
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -105,6 +124,9 @@ DATABASES = {
     }
 }
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -132,6 +154,11 @@ PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.BCryptPasswordHasher',  # bcrypt classico (meno sicuro)
 ]
 
+SIMPLE_JWT = {
+
+}
+
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -146,6 +173,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PARSER_CLASSES': [
         'rest_framework.parsers.JSONParser',
     ],
+    'DATETIME_FORMAT': '%d/%m/%Y %H:%M',
 }
 
 # Internationalization
