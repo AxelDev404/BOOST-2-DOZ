@@ -43,7 +43,20 @@ def post_todo(request):
 
 
 
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def delete_todo(request , id_task):
 
+    if request.method == 'DELETE':
+
+        try:
+            istance = get_object_or_404(Task , id_task=id_task)
+        
+            istance.delete()
+        
+            return Response({'Message' : 'Task cancellata dalla base dati'} , status=status.HTTP_204_NO_CONTENT)
+        except Task.DoesNotExist:
+            return Response({'Message' : 'Nessuna task trovata per questo id'} , status=status.HTTP_400_BAD_REQUEST)
 
 
 

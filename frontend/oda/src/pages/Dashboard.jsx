@@ -24,17 +24,17 @@ function DashBoard() {
     const [open, setOpen] = useState(true);
 
     const logout = () => {
-        localStorage.removeItem('access');
-        localStorage.removeItem('refresh');
-        navigate('/');
+      localStorage.removeItem('access');
+      localStorage.removeItem('refresh');
+      navigate('/');
     };
 
     const handleChange = (event, newValue) => {
-        setValue(newValue);
+      setValue(newValue);
     };
 
     const toggleSidebar = () => {
-        setOpen(!open);
+      setOpen(!open);
     };
 
     return (

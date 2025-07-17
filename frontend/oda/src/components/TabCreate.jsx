@@ -78,6 +78,7 @@ function TabCreate(){
             </div>
 
             {/* Form container con glass effect */}
+            
             <div className="max-w-md mx-auto bg-gray-800 bg-opacity-50 backdrop-blur-sm rounded-2xl shadow-xl overflow-hidden border border-gray-700 p-8">
                 <form onSubmit={CreateTask} className="space-y-6">
                     {/* Titolo Field */}
@@ -131,7 +132,9 @@ function TabCreate(){
                     </div>
 
                     {/* Submit Button */}
+
                     <div className="pt-4">
+
                         <button
                             type="submit"
                             className="w-full flex items-center justify-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-medium rounded-lg shadow-lg transform hover:scale-[1.02] transition-all duration-200"
@@ -139,9 +142,13 @@ function TabCreate(){
                             <FileUploadIcon sx={{ fontSize: 24 }} />
                             <span>Add Task</span>
                         </button>
+
                     </div>
+
                 </form>
+
             </div>
+
         </div>
 
 

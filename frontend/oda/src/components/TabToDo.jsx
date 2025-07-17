@@ -1,13 +1,16 @@
 
 import React, { useEffect, useState } from 'react';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
-import RemoveDoneIcon from '@mui/icons-material/RemoveDone';
+import DeleteIcon from '@mui/icons-material/Delete';
 function TabToDo(){
 
     const [task , setTask] = useState([]);
     const [stato , setStato] = useState(null);
+    const [ref , setRef] = useState([]);
 
     const token_access = localStorage.getItem('access');    
+
+    const [id_task , setIdTask] = useState(0);
 
     useEffect(()=>{
 
@@ -41,6 +44,74 @@ function TabToDo(){
 
     },[]);
 
+ 
+    
+    const Refresh_2 =()=>{
+
+        
+        fetch(
+            'api/tasks/',
+
+            {
+                headers : 
+                {
+                    'Authorization' : `Bearer ${token_access}`,
+
+                }
+
+            }
+        )
+        .then(res => res.json())
+        .then(data => setRef(data))
+        .catch(err => console.log(err.message))
+
+   
+
+    }
+
+   
+    useEffect(()=>{
+        Refresh_2();
+    },[]);
+
+
+    const del_tks = (id_task) =>
+    {
+
+        console.log(id_task)
+        
+
+        fetch(
+            `api/delete_tks/${id_task}/`,
+
+            {
+                method:'DELETE',
+                headers :      
+                {
+                    'Authorization' : `Bearer ${token_access}`,
+                },
+                
+            }
+
+        )
+        .then(res=>
+            {
+                
+                if(!res.ok){
+                
+                    throw new Error('Qualcosa e andato storto')
+                
+                }
+          
+                
+                return res.json();
+
+            }
+        )
+        .catch(err=>console.log(err.message))
+
+    };
+
 
     return(
         <div className="w-full grid grid-cols-1 md:grid-cols-4 md:gap-y-6 gap-y-3 px-3 md:px-10">
@@ -48,7 +119,7 @@ function TabToDo(){
             
             {Array.isArray(task) && task.map(task => (
 
-                <div key={task.id} class="w-full md:w-5/6 bg-gray-900 border border-gray-700 rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:border-gray-600">
+                <div key={task.id_task} class="w-full md:w-5/6 bg-gray-900 border border-gray-700 rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:border-gray-600">
                     <div class="flex flex-col p-6 space-y-4">
                        
 
@@ -88,13 +159,20 @@ function TabToDo(){
                                     </div>
                                 )}
                             </div>
+
+                            <div>
+
+                                <button onClick={() => del_tks(Number(task.id_task) , window.location.reload())}>
+                                    <DeleteIcon sx={{color:'red'}}/>
+                                </button>
+                                
+                                <span className='px-2 text-red-600 font-medium'>Cancella</span>
+
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                            
-
-                
 
             ))}
 
