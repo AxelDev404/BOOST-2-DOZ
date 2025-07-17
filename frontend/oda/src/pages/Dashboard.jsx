@@ -103,7 +103,7 @@ function DashBoard() {
               
               <TabPanel value="1" sx={{ p: 0 }}>
 
-                <div className='text-center py-10 text-5xl text-white font-thin'>OVERVIEW</div>
+                <div className='text-5xl md:text-6xl text-center py-6 font-extralight text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 tracking-wide'>OVERVIEW</div>
 
                 <TabToDo/>
               
