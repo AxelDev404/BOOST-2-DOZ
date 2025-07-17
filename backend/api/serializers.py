@@ -13,9 +13,10 @@ class TaskSerialized(serializers.ModelSerializer):
             'titolo',
             'contenuto',
             'stato',
-            'data_formattata',
-            'user'
+            'data_formattata'   
         )
+
+        read_only_fields = ['user']
 
     def get_data_formattata(self, obj):
         return obj.scadenza.strftime("d%/m%/Y%")

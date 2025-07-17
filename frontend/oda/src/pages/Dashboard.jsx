@@ -79,15 +79,16 @@ function DashBoard() {
                   <div className="py-1"></div>
                                     
                   <TabList orientation="vertical" onChange={handleChange} aria-label="Vertical icon tabs" sx={{ '& .MuiTab-root': { minWidth: 0, padding: '12px', color: 'white' }, '& .Mui-selected': { color: '#6495ED' } }}>
+                   
                     <Tab icon={<FormatListBulletedIcon sx={{ fontSize: 35 }} />} title='view tasks' value="1" />
                     <div className="py-5"></div>
                     <Tab icon={<FormatListBulletedAddIcon sx={{ fontSize: 35 }} />} title='add tasks' value="2" />
                     <div className="py-5"></div>
-                    <Tab icon={<ChecklistRtlIcon sx={{ fontSize: 35 }} />} title='status tasks' value="4" />
+                    <Tab icon={<ChecklistRtlIcon sx={{ fontSize: 35 }} />} title='status tasks' value="3" />
                     <div className="py-5"></div>
+                    <Tab icon={<ShareIcon sx={{ fontSize: 35 }} />} title='status tasks' value="4" />
                     <div className="py-5"></div>
-                    <Tab icon={<BuildIcon sx={{ fontSize: 35 }} />} title='modify tasks' value="5" />
-                    <div className="py-5"></div>
+
                   </TabList>
 
                 </>
@@ -126,11 +127,8 @@ function DashBoard() {
               
               </TabPanel>
 
-              <TabPanel value="5" sx={{ p: 0 }}>
-              
-                Contenuto 5
-              
-              </TabPanel>
+
+
             
             </Box>
 

@@ -9,25 +9,21 @@ from rest_framework.permissions import IsAuthenticated
 
 
 
-
-
-
-
-
-
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def get_todo(request):
 
     if request.method == 'GET':
 
         try: 
-            tsk = Task.objects.all()
+            tsk = Task.objects.filter(user=request.user)
             serializer = TaskSerialized(tsk , many=True)
 
             return Response(serializer.data , status=status.HTTP_200_OK)   
 
         except Task.DoesNotExist:
             return Response({'Message' , 'non e stata creata nessuna task'} , status=status.HTTP_400_BAD_REQUEST)
+
 
 
 @api_view(['POST'])
