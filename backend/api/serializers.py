@@ -39,6 +39,14 @@ class TaskToPostSerialized(serializers.ModelSerializer):
 
 
 
+class TaskSerializerDone(serializers.ModelSerializer):
 
+    class Meta:
 
+        model = Task
+        fields = ['stato']
+            
+        
+
+        read_only_fields=['user']
 

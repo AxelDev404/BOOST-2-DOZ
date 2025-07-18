@@ -35,10 +35,10 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=5),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
-    'ROTATE_REFRESH_TOKENS': True,
-    'BLACKLIST_AFTER_ROTATION': True,
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': False,
     
     'AUTH_HEADER_TYPES': ('Bearer',),
     'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
@@ -51,11 +51,11 @@ SIMPLE_JWT = {
     'TOKEN_TYPE_CLAIM': 'token_type',
     
     'JTI_CLAIM': 'jti',
-    'TOKEN_USER_CLASS': 'rest_framework_simplejwt.models.TokenUser',
+    #'TOKEN_USER_CLASS': 'rest_framework_simplejwt.models.TokenUser',
     
-    'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
-    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
-    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+    #'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
+    #'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
+    #'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
 
 # Application definition
@@ -154,9 +154,6 @@ PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.BCryptPasswordHasher',  # bcrypt classico (meno sicuro)
 ]
 
-SIMPLE_JWT = {
-
-}
 
 
 

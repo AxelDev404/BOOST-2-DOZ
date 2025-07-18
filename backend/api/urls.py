@@ -5,4 +5,6 @@ urlpatterns = [
     path('tasks/' , views.get_todo , name='get_todo'),
     path('post_tsk/' , views.post_todo , name='post_todo'),
     path('delete_tks/<int:id_task>/', views.delete_todo , name='delete_todo'),
+    path('patch_tsk/<int:id_task>/' , views.patch_todo , name='patch_todo'),
+    path('change_status_task/<int:id_task>/' , views.change_status_todo , name='change_status_task'),
 ]

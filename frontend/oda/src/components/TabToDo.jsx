@@ -2,15 +2,35 @@
 import React, { useEffect, useState } from 'react';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import DeleteIcon from '@mui/icons-material/Delete';
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import Popup from 'reactjs-popup';
+
+import EditIcon from '@mui/icons-material/Edit';
+import ReplyAllIcon from '@mui/icons-material/ReplyAll';
+
 function TabToDo(){
 
     const [task , setTask] = useState([]);
-    const [stato , setStato] = useState(null);
+    const [stato , setStato] = useState(false);
     const [ref , setRef] = useState([]);
 
     const token_access = localStorage.getItem('access');    
 
     const [id_task , setIdTask] = useState(0);
+
+
+    const [titolo , setTitolo] = useState('');
+    const [contenuto , setContenuto] = useState('');
+    const [scadenza , setData] = useState('');
+
+    const [isEditing, setIsEditing] = useState(false);
+    const [isEditing2, setIsEditing2] = useState(false);
+    const [isEditing3, setIsEditing3] = useState(false);
+
+
+
+
+    const [isClikced , setIsClicked] = useState(false);
 
     useEffect(()=>{
 
@@ -78,7 +98,7 @@ function TabToDo(){
     const del_tks = (id_task) =>
     {
 
-        console.log(id_task)
+       
         
 
         fetch(
@@ -113,6 +133,97 @@ function TabToDo(){
     };
 
 
+    
+
+    const ChangeStatus = (id_task) =>
+    {
+
+        //in caso di errori provare direttamente nel onClick event
+
+        fetch(
+            `api/change_status_task/${id_task}/`,
+            {
+                method : 'PATCH',
+
+                headers : {
+                    'Content-Type' : 'application/json',
+                    'Authorization' : `Bearer ${token_access}`,
+                },
+                
+                body : JSON.stringify({stato:true})
+
+            }   
+        )
+        .then(res=> 
+            {
+                if(!res.ok){
+                    throw new Error('Qualcosa e andato storto')
+                }
+                return res.json();
+            }
+        )
+        .catch(err => console.log(err.message))
+    }
+
+
+
+    const handleBlur = () => {
+        setIsEditing(false);
+
+    };
+
+
+    const handleBlur_2 = () => {
+        setIsEditing2(false);
+  
+    };
+
+    const handleBlur_3 = () => {
+        setIsEditing3(false);
+  
+    };
+
+    const payload = {};
+    
+    if(titolo.trim() !== '')payload.titolo = titolo
+    if(contenuto.trim() !== '')payload.contenuto = contenuto;
+    if(scadenza.trim() !== '')payload.scadenza = new Date(scadenza).toISOString().split('T')[0];
+    
+
+    const modify_task = (id_task) =>
+    {
+
+        fetch(
+            
+            `api/patch_tsk/${id_task}/`,
+            {
+                method : 'PATCH',
+
+                headers: {
+                    
+                    'Content-Type' : 'application/json',
+                    'Authorization' : `Bearer ${token_access}`,
+                },
+
+                body : JSON.stringify(payload)
+
+            }
+        
+        )
+        .then(res => 
+            {
+                if(!res.ok){
+                    throw new Error('Qualcosa e andato storto')
+                }
+                return res.json();
+            }
+        )
+        .catch(err => console.log(err.message))
+        
+
+    }
+
+
     return(
         <div className="w-full grid grid-cols-1 md:grid-cols-4 md:gap-y-6 gap-y-3 px-3 md:px-10">
             <div className="bg-sla h-8 md:h-12 md:col-span-4"></div>
@@ -123,14 +234,63 @@ function TabToDo(){
                     <div class="flex flex-col p-6 space-y-4">
                        
 
-                        <div class="bg-gradient-to-r from-indigo-900 to-purple-900 rounded-lg px-4 py-3 shadow-inner">
-                            <h5 class="text-2xl font-semibold text-white tracking-wide">{task.titolo}</h5>
+                        <div class="bg-gradient-to-r flex from-indigo-900 to-purple-900 rounded-lg px-4 py-3 shadow-inner text-2xl font-semibold text-white tracking-wide">
+
+                            {isEditing ? (
+                                <input
+                                    value={titolo}
+                                    onChange={(e) => setTitolo(e.target.value)}
+                                    
+
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter') {
+                                        handleBlur();
+                                        }
+                                    }}
+                                    autoFocus
+                                    className='bg-gradient-to-r flex from-indigo-900 to-purple-900 border-none w-full'
+                                />
+                                ) : (
+                                <h1 onClick={() => setIsEditing(true)} style={{ cursor: 'pointer' }}>
+                                    {task.titolo}
+                                </h1>
+                            )}
+                                                 
                         </div>
                         
                       
                         <div class="bg-gray-800 rounded-lg px-4 py-3 border border-gray-700">
                             <span class="text-lg text-gray-300 font-medium">To do:</span>
-                            <p class="mt-1 text-gray-200">{task.contenuto}</p>
+                            
+                            <div className='"mt-1 text-gray-200'>
+                                
+                                
+                                {isEditing2 ? (
+                                    <input
+                                        value={contenuto}
+                                        onChange={(e) => setContenuto(e.target.value)}
+                                        
+
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter') {
+                                            handleBlur_2();
+                                            }
+                                        }}
+                                        autoFocus
+                                        className='bg-gray-800  text-white w-full'
+                                    />
+                                    ) : (
+                                    <h1 onClick={() => setIsEditing2(true)} style={{ cursor: 'pointer' }}>
+                                        {task.contenuto}
+                                    </h1>
+                                )}
+                                 
+                            
+                            
+                            
+                            </div>
+                            
+                           
                         </div>
                         
                         
@@ -139,10 +299,39 @@ function TabToDo(){
                                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                                 </svg>
-                                <span class="text-sm font-medium">Scadenza: <span class="text-gray-300">{task.data_formattata}</span></span>
+                                <span class="text-sm font-medium">Scadenza: <span class="text-gray-300">
+                                    
+                                    {isEditing3 ? (
+                                        <input
+                                            value={scadenza}
+                                            onChange={(e) => setData(e.target.value)}
+                                            
+
+                                            type='date'
+
+                                            onKeyDown={(e) => {
+                                                if (e.key === 'Enter') {
+                                                    handleBlur_3();
+                                                }
+                                            }}
+                                            autoFocus
+                                            className='bg-white  text-black'
+                                        />
+                                        ) : (
+                                        <h1 onClick={() => setIsEditing3(true)} style={{ cursor: 'pointer' }}>
+                                            {task.data_formattata}
+                                        </h1>
+                                    )}
+                                
+                                </span></span>
+
+
+
+
                             </div>
                             
                             <div class="flex items-center">
+                                
                                 {task.stato ? (
                                     <div class="flex items-center text-green-400">
                                         <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -158,17 +347,43 @@ function TabToDo(){
                                         <span class="text-sm font-medium">In sospeso</span>
                                     </div>
                                 )}
+
+
+
                             </div>
 
                             <div>
-
+                                <div className='py-2'></div>
                                 <button onClick={() => del_tks(Number(task.id_task) , window.location.reload())}>
+                                
                                     <DeleteIcon sx={{color:'red'}}/>
+                                    <span className='px-2 text-red-600 font-medium'>Cancella</span>
                                 </button>
                                 
-                                <span className='px-2 text-red-600 font-medium'>Cancella</span>
+                                <div className='py-2'></div>
+                                
+                                <button onClick={() =>modify_task(Number(task.id_task) , window.location.reload())}>
+                                
+                                    <EditIcon sx={{color:'green'}}/>
+                                    <span className='px-2 text-green-600 font-medium'>Modifica</span>
+                                </button>
 
+                                <button onClick={() => window.location.reload()}>
+                                    <ReplyAllIcon sx={{color:'red'}}/>
+                                    <span className='px-2 text-red-600 font-medium'>Annulla</span>
+                                </button>
+
+                                
                             </div>
+
+                            
+                                
+                            <button  onClick={() => ChangeStatus(Number(task.id_task) , window.location.reload())} className='w-full flex items-center justify-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-medium rounded-lg shadow-lg transform hover:scale-[1.02] transition-all duration-200"'>
+                                Fatto
+                            </button>
+                            
+
+                            
                         </div>
                     </div>
                 </div>

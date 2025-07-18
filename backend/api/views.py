@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view , permission_classes
 from django.shortcuts import get_object_or_404
 from .models import Task
-from .serializers import TaskSerialized , TaskToPostSerialized
+from .serializers import TaskSerialized , TaskToPostSerialized , TaskSerializerDone
 from rest_framework.permissions import IsAuthenticated
 
 
@@ -57,6 +57,49 @@ def delete_todo(request , id_task):
             return Response({'Message' : 'Task cancellata dalla base dati'} , status=status.HTTP_204_NO_CONTENT)
         except Task.DoesNotExist:
             return Response({'Message' : 'Nessuna task trovata per questo id'} , status=status.HTTP_400_BAD_REQUEST)
+
+
+
+#
+@api_view(['PATCH'])
+@permission_classes([IsAuthenticated])
+def patch_todo(request , id_task):
+
+    if request.method == 'PATCH':
+
+       istance = get_object_or_404(Task , id_task=id_task)
+       serializer = TaskToPostSerialized(istance , data=request.data , partial=True)
+       
+       if serializer.is_valid():
+           serializer.save()
+           
+           return Response(serializer.data , status=status.HTTP_202_ACCEPTED)
+       else:
+           return Response(serializer.errors , status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['PATCH'])
+@permission_classes([IsAuthenticated])
+def change_status_todo(request, id_task):
+
+    if request.method == 'PATCH':
+
+        istance_status = get_object_or_404(Task , id_task=id_task)
+        serializer = TaskSerializerDone(istance_status , data=request.data , partial=True)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data , status=status.HTTP_202_ACCEPTED)
+        
+        else:
+            return Response(serializer.errors , status=status.HTTP_400_BAD_REQUEST)
+        
+
+
+
+
+
+
 
 
 
