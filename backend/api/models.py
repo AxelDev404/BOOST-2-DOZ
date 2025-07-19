@@ -14,6 +14,8 @@ class Task(models.Model):
 
     user = models.ForeignKey(User , on_delete=models.CASCADE , related_name='task')
 
+    condiviso_con = models.ManyToManyField(User , related_name='task_condivise' , blank=True)
+
     def data_formattata(self,):
         return self.scadenza.strftime("%d/%m/%Y")
 

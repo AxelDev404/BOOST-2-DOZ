@@ -16,7 +16,7 @@ def get_todo(request):
     if request.method == 'GET':
 
         try: 
-            tsk = Task.objects.filter(user=request.user)
+            tsk = Task.objects.filter(user=request.user).order_by('scadenza')
             serializer = TaskSerialized(tsk , many=True)
 
             return Response(serializer.data , status=status.HTTP_200_OK)   

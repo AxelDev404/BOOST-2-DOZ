@@ -111,11 +111,11 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'mssql',
-        'NAME': 'todo',
-        'HOST': 'localhost\\SQLEXPRESS',     #localhost\\SQLEXPRESS  rimettere se passi al server locale al posto dell'IP 192.168.1.33
+        'NAME': 'oda',
+        'HOST': 'localhost',     #localhost\\SQLEXPRESS  rimettere se passi al server locale al posto dell'IP 192.168.1.33
         'PORT': '',             #da togliere il numero porta se passi al server locale 1433
-        #'USER': 'alexRemote',       #togliere la riga se passi in server locale o commentala senza eliminarla managri ALEX dato che poi in futuro servira molto probabilmente
-        #'PASSWORD': 'alex2003',     #togliere la riga se passi in server locale o commentala senza eliminarla managri ALEX dato che poi in futuro servira molto probabilmente
+        'USER': 'SA',       #togliere la riga se passi in server locale o commentala senza eliminarla managri ALEX dato che poi in futuro servira molto probabilmente
+        'PASSWORD': 'alex2003A03',     #togliere la riga se passi in server locale o commentala senza eliminarla managri ALEX dato che poi in futuro servira molto probabilmente
         'OPTIONS': {
             'driver': 'ODBC Driver 18 for SQL Server',
             'trusted_connection': 'yes',
