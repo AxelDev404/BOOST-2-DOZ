@@ -14,7 +14,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import TabCreate from '../components/TabCreate';
 import TabToDo from '../components/TabToDo';
 
@@ -82,11 +82,17 @@ function DashBoard() {
                    
                     <Tab icon={<FormatListBulletedIcon sx={{ fontSize: 35 }} />} title='view tasks' value="1" />
                     <div className="py-5"></div>
+                    
                     <Tab icon={<FormatListBulletedAddIcon sx={{ fontSize: 35 }} />} title='add tasks' value="2" />
                     <div className="py-5"></div>
+                    
                     <Tab icon={<ChecklistRtlIcon sx={{ fontSize: 35 }} />} title='status tasks' value="3" />
                     <div className="py-5"></div>
-                    <Tab icon={<ShareIcon sx={{ fontSize: 35 }} />} title='status tasks' value="4" />
+                    
+                    <Tab icon={<PersonAddIcon sx={{ fontSize: 35 }} />} title='status tasks' value="4" />
+                    <div className="py-5"></div>
+                    
+                    <Tab icon={<ShareIcon sx={{ fontSize: 35 }} />} title='status tasks' value="5" />
                     <div className="py-5"></div>
 
                   </TabList>
@@ -122,6 +128,13 @@ function DashBoard() {
               </TabPanel>
 
               <TabPanel value="4" sx={{ p: 0 }}>
+              
+                Contenuto 4
+              
+              </TabPanel>
+
+
+              <TabPanel value="5" sx={{ p: 0 }}>
               
                 Contenuto 4
               

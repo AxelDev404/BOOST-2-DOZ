@@ -11,12 +11,13 @@ from rest_framework.permissions import IsAuthenticated
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
-def get_todo(request):
+def get_todo(request): 
 
     if request.method == 'GET':
 
         try: 
-            tsk = Task.objects.filter(user=request.user)
+            #Fare altre get per testare piu filtri di ricerca possibile feature barra di ricerca o filtri per data
+            tsk = Task.objects.filter(user=request.user).order_by('scadenza')
             serializer = TaskSerialized(tsk , many=True)
 
             return Response(serializer.data , status=status.HTTP_200_OK)   
