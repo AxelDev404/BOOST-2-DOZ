@@ -52,8 +52,7 @@ function LogIn(){
                     alt="Logo" 
                     className='h-20 w-20 rounded-full border-2 border-blue-500 object-cover'
                 />
-               
-
+            
             </div>
             
           
