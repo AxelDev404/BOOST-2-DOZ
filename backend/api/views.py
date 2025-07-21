@@ -4,9 +4,26 @@ from rest_framework import status
 from rest_framework.decorators import api_view , permission_classes
 from django.shortcuts import get_object_or_404
 from .models import Task
-from .serializers import TaskSerialized , TaskToPostSerialized , TaskSerializerDone , TaskShardSerializer
+from .serializers import TaskSerialized , TaskToPostSerialized , TaskSerializerDone , TaskShardSerializer , TaskFindToShareSerializer
 from rest_framework.permissions import IsAuthenticated
 from django.db.models import Q
+from django.contrib.auth.models import User
+
+
+
+@api_view(['GET'])
+def get_user_list(request):
+
+    if request.method == 'GET':
+        try :
+            user = User.objects.all()
+            serializer = TaskFindToShareSerializer(user , many=True)
+            
+            return Response(serializer.data , status=status.HTTP_200_OK)
+
+        except User.DoesNotExist:
+            return Response({'Message' : 'nessun utente esistente per la condivisione'} , status=status.HTTP_400_BAD_REQUEST)
+
 
 
 @api_view(['GET'])

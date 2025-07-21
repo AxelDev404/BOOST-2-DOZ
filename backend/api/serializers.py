@@ -4,6 +4,15 @@ from .models import Task
 from django.contrib.auth.models import User
 
 
+class TaskFindToShareSerializer(serializers.ModelSerializer):
+
+    class Meta:
+
+        model = User 
+
+        fields = ['id','username']
+
+
 class TaskInfoUserSerializer(serializers.ModelSerializer):
 
     class Meta: 
@@ -60,6 +69,8 @@ class TaskSerialized(serializers.ModelSerializer):
 
 
 class TaskToPostSerialized(serializers.ModelSerializer):
+
+    
 
     class Meta:
 

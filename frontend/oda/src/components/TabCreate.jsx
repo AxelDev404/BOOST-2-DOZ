@@ -14,6 +14,8 @@ function TabCreate(){
     const [shared , setShared] = useState(null);
 
     const token_access = localStorage.getItem('access');
+
+    const [usrlist , setUsrList] = useState([]);
    
 
     function CreateTask(e)
@@ -39,7 +41,7 @@ function TabCreate(){
                     'Authorization': `Bearer ${token_access}`,
                 } ,
 
-                body : JSON.stringify({titolo , contenuto , scadenza:new Date(scadenza).toISOString().split('T')[0] , shared:shared})
+                body : JSON.stringify({titolo , contenuto , scadenza:new Date(scadenza).toISOString().split('T')[0] ,shared:shared})
             }
 
         )
@@ -66,12 +68,32 @@ function TabCreate(){
     }
 
 
+    useEffect(()=>{
+
+        fetch
+        (
+            'api/user_list/' 
+        )
+        .then(res => 
+            {
+                if(!res.ok){
+                    throw new Error('Qualcosa è andato storto');
+                }
+                return res.json();
+            }
+        )
+        .then(data => setUsrList(data))
+        .catch(err => console.log(err.massage))
+    })
+    
+
 
 
     return(
 
         <div className="min-h-screen bg-black py-12 px-4 sm:px-6 lg:px-8">
-            {/* Header con effetto glow */}
+            
+
             <div className="text-center mb-16">
                 <h1 className="text-5xl md:text-6xl font-extralight text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 tracking-wide">
                     ADD TASK
@@ -79,7 +101,7 @@ function TabCreate(){
                 <div className="mt-4 h-1 w-24 mx-auto bg-gradient-to-r from-blue-500 to-purple-600 rounded-full opacity-80"></div>
             </div>
 
-            {/* Form container con glass effect */}
+        
             
             <div className="max-w-md mx-auto bg-gray-800 bg-opacity-50 backdrop-blur-sm rounded-2xl shadow-xl overflow-hidden border border-gray-700 p-8">
                 <form onSubmit={CreateTask} className="space-y-6">
@@ -104,7 +126,7 @@ function TabCreate(){
                         </div>
                     </div>
 
-                    {/* Contenuto Field */}
+               
                     <div className="space-y-2">
                         <label className="block text-sm font-medium text-gray-300 uppercase tracking-wider">
                             Contenuto
@@ -117,7 +139,7 @@ function TabCreate(){
                         />
                     </div>
 
-                    {/* Scadenza Field */}
+                 
                     <div className="space-y-2">
                         <label className="block text-sm font-medium text-gray-300 uppercase tracking-wider">
                             Scadenza
@@ -139,16 +161,34 @@ function TabCreate(){
                         </label>
                         <div className="relative">
                             <input
-                                value={shared}
-                                onChange={e => setShared(Number(e.target.value))}
+                                value={shared} onChange={e => setShared(Number(e.target.value))}
                                 type='number'
                                 className="block w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                                 placeholder="Id utente"
                             />
+
+                            
+                            <label className="block text-sm font-medium text-gray-300 uppercase tracking-wider py-5">
+                                Lista utenti
+                            </label>
+
+                            <select  name="usrlist" id="usrlist" className="block w-full px-4 py-3 bg-gray-700 border            border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2  focus:ring-blue-500 focus:border-transparent transition-all">
+
+                                {Array.isArray(usrlist) && usrlist.map(usrlist =>(
+                             
+                                    <option key={usrlist.id} >
+                                      ID :  {usrlist.id} Username : {usrlist.username}
+                                    </option>
+                               
+                                ))}
+
+                            </select>
+                            
+                           
                         </div>
                     </div>
 
-                    {/* Submit Button */}
+                  
 
                     <div className="pt-4">
 
