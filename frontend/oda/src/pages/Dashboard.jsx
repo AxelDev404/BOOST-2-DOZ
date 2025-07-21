@@ -17,6 +17,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import TabCreate from '../components/TabCreate';
 import TabToDo from '../components/TabToDo';
+import TabShare from '../components/TabShare';
 
 function DashBoard() {
     const navigate = useNavigate();
@@ -82,18 +83,20 @@ function DashBoard() {
                    
                     <Tab icon={<FormatListBulletedIcon sx={{ fontSize: 35 }} />} title='view tasks' value="1" />
                     <div className="py-5"></div>
-                    
-                    <Tab icon={<FormatListBulletedAddIcon sx={{ fontSize: 35 }} />} title='add tasks' value="2" />
+
+                    <Tab icon={<ShareIcon sx={{ fontSize: 35 }} />} title='status tasks' value="5" />
                     <div className="py-5"></div>
-                    
+
                     <Tab icon={<ChecklistRtlIcon sx={{ fontSize: 35 }} />} title='status tasks' value="3" />
                     <div className="py-5"></div>
                     
+                    <Tab icon={<FormatListBulletedAddIcon sx={{ fontSize: 35 }} />} title='add tasks' value="2" />
+                    <div className="py-5"></div>
+                                        
                     <Tab icon={<PersonAddIcon sx={{ fontSize: 35 }} />} title='status tasks' value="4" />
                     <div className="py-5"></div>
                     
-                    <Tab icon={<ShareIcon sx={{ fontSize: 35 }} />} title='status tasks' value="5" />
-                    <div className="py-5"></div>
+                  
 
                   </TabList>
 
@@ -135,8 +138,10 @@ function DashBoard() {
 
 
               <TabPanel value="5" sx={{ p: 0 }}>
-              
-                Contenuto 4
+                
+                <div className='text-5xl md:text-6xl text-center py-6 font-extralight text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 tracking-wide'>SHARED TASKS</div>
+
+                <TabShare/>
               
               </TabPanel>
 

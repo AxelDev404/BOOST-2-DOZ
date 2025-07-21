@@ -4,15 +4,15 @@ from rest_framework import status
 from rest_framework.decorators import api_view , permission_classes
 from django.shortcuts import get_object_or_404
 from .models import Task
-from .serializers import TaskSerialized , TaskToPostSerialized , TaskSerializerDone
+from .serializers import TaskSerialized , TaskToPostSerialized , TaskSerializerDone , TaskShardSerializer
 from rest_framework.permissions import IsAuthenticated
-
+from django.db.models import Q
 
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_todo(request):
-
+    
     if request.method == 'GET':
 
         try: 
@@ -23,6 +23,26 @@ def get_todo(request):
 
         except Task.DoesNotExist:
             return Response({'Message' , 'non e stata creata nessuna task'} , status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_shared_todo(request):
+    
+    user = request.user
+    
+    if request.method == 'GET':
+        
+        try:    
+        
+            task = Task.objects.filter(Q(shared=user)).order_by('scadenza')
+            serializer = TaskShardSerializer(task , many=True)
+
+            return Response(serializer.data , status=status.HTTP_200_OK)
+        
+        except Task.DoesNotExist:
+            return Response({'Message' : 'nessuna task condivisa esiste nel database'} , status=status.HTTP_400_BAD_REQUEST)
+ 
 
 
 

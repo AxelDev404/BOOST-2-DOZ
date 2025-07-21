@@ -1,6 +1,27 @@
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 from .models import Task
+from django.contrib.auth.models import User
+
+class TaskShardSerializer(serializers.ModelSerializer):
+
+    class Meta:
+
+        model = Task
+
+        fields = (
+            'id_task',
+            'titolo',
+            'contenuto',
+            'data_formattata',
+            'stato',
+            'shared'
+        )
+
+        read_only_fields = ['user']
+
+        def get_data_formattata(self,obj):
+            return obj.scadenza.strftime("d%/m%/Y%")
 
 
 class TaskSerialized(serializers.ModelSerializer):
@@ -32,7 +53,8 @@ class TaskToPostSerialized(serializers.ModelSerializer):
         fields = (
             'titolo',
             'contenuto',
-            'scadenza'
+            'scadenza',
+            'shared'
         )
         
         read_only_fields = ['user']

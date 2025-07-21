@@ -111,7 +111,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'mssql',
-        'NAME': 'oda',
+        'NAME': 'todo',
         'HOST': 'localhost',     #localhost\\SQLEXPRESS  rimettere se passi al server locale al posto dell'IP 192.168.1.33
         'PORT': '',             #da togliere il numero porta se passi al server locale 1433
         'USER': 'SA',       #togliere la riga se passi in server locale o commentala senza eliminarla managri ALEX dato che poi in futuro servira molto probabilmente

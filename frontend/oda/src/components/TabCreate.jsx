@@ -11,6 +11,8 @@ function TabCreate(){
     const [contenuto , setContenuto] = useState('');
     const [scadenza , setDataFormattata] = useState('');
 
+    const [shared , setShared] = useState(0);
+
     const token_access = localStorage.getItem('access');
    
 
@@ -37,7 +39,7 @@ function TabCreate(){
                     'Authorization': `Bearer ${token_access}`,
                 } ,
 
-                body : JSON.stringify({titolo , contenuto , scadenza:new Date(scadenza).toISOString().split('T')[0]})
+                body : JSON.stringify({titolo , contenuto , scadenza:new Date(scadenza).toISOString().split('T')[0] , shared})
             }
 
         )
@@ -128,6 +130,21 @@ function TabCreate(){
                                 className="block w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all appearance-none"
                             />
 
+                        </div>
+                    </div>
+
+                    <div className="space-y-2">
+                        <label className="block text-sm font-medium text-gray-300 uppercase tracking-wider">
+                            Condividi (ID utente)
+                        </label>
+                        <div className="relative">
+                            <input
+                                value={shared}
+                                onChange={e => setShared(Number(e.target.value))}
+                                type='number'
+                                className="block w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                                placeholder="Id utente"
+                            />
                         </div>
                     </div>
 
