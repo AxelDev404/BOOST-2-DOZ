@@ -3,7 +3,20 @@ from rest_framework.serializers import ModelSerializer
 from .models import Task
 from django.contrib.auth.models import User
 
+
+class TaskInfoUserSerializer(serializers.ModelSerializer):
+
+    class Meta: 
+
+        model = User
+
+        fields = ['username']
+
+
+
 class TaskShardSerializer(serializers.ModelSerializer):
+
+    user = TaskInfoUserSerializer()
 
     class Meta:
 
@@ -15,7 +28,8 @@ class TaskShardSerializer(serializers.ModelSerializer):
             'contenuto',
             'data_formattata',
             'stato',
-            'shared'
+            'shared',
+            'user'
         )
 
         read_only_fields = ['user']

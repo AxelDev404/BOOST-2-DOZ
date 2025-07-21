@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import GroupIcon from '@mui/icons-material/Group';
+
 
 function TabShare(){
 
@@ -56,14 +58,10 @@ function TabShare(){
                             
                             <div className='"mt-1 text-gray-200'>
 
-                                    <h1 >
-                                        {task.contenuto}
-                                    </h1>
-                            
-                                 
-                            
-                            
-                            
+                                <h1 >
+                                    {task.contenuto}
+                                </h1>
+
                             </div>
                             
                            
@@ -80,6 +78,20 @@ function TabShare(){
                                     <h1 >
                                         {task.data_formattata}
                                     </h1>
+                      
+                                </span></span>
+
+                            </div>
+
+
+                            <div class="flex items-center text-gray-400">
+
+                                
+                                
+                                <span class="text-sm font-medium">Shared by: <span class="text-gray-300">
+                                    <br />
+                                     <GroupIcon sx={{color : 'green'}}/> @{task?.user?.username}
+                                  
                       
                                 </span></span>
 
