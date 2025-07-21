@@ -18,6 +18,7 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import TabCreate from '../components/TabCreate';
 import TabToDo from '../components/TabToDo';
 import TabShare from '../components/TabShare';
+import TabDone from '../components/TabDone';
 
 function DashBoard() {
     const navigate = useNavigate();
@@ -125,8 +126,10 @@ function DashBoard() {
               </TabPanel>
 
               <TabPanel value="3" sx={{ p: 0 }}>
-              
-                Contenuto 3
+
+                <div className='text-5xl md:text-6xl text-center py-6 font-extralight text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 tracking-wide'>DONE TASKS</div>
+
+                <TabDone/>
               
               </TabPanel>
 

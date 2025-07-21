@@ -44,6 +44,19 @@ def get_shared_todo(request):
             return Response({'Message' : 'nessuna task condivisa esiste nel database'} , status=status.HTTP_400_BAD_REQUEST)
  
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_done_todo(request):
+
+    if request.method == 'GET':
+        try: 
+            task = Task.objects.filter(user=request.user , stato=True).order_by('stato')
+            serializer = TaskSerialized(task , many=True)
+
+            return Response(serializer.data , status=status.HTTP_200_OK)
+        
+        except Task.DoesNotExist:
+            return Response({'Messaggio' : 'nessuna task è stata ancora completata'} , status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])

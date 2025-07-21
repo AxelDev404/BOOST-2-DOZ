@@ -11,7 +11,7 @@ function TabCreate(){
     const [contenuto , setContenuto] = useState('');
     const [scadenza , setDataFormattata] = useState('');
 
-    const [shared , setShared] = useState(0);
+    const [shared , setShared] = useState(null);
 
     const token_access = localStorage.getItem('access');
    
@@ -39,7 +39,7 @@ function TabCreate(){
                     'Authorization': `Bearer ${token_access}`,
                 } ,
 
-                body : JSON.stringify({titolo , contenuto , scadenza:new Date(scadenza).toISOString().split('T')[0] , shared})
+                body : JSON.stringify({titolo , contenuto , scadenza:new Date(scadenza).toISOString().split('T')[0] , shared:shared})
             }
 
         )
