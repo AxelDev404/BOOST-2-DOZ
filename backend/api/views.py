@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view , permission_classes
 from django.shortcuts import get_object_or_404
 from .models import Task
-from .serializers import TaskSerialized , TaskToPostSerialized , TaskSerializerDone , TaskShardSerializer , TaskFindToShareSerializer
+from .serializers import TaskSerialized , TaskToPostSerialized , TaskSerializerDone , TaskShardSerializer , TaskFindToShareSerializer ,UserSerializer
 from rest_framework.permissions import IsAuthenticated
 from django.db.models import Q
 from django.contrib.auth.models import User
@@ -145,7 +145,18 @@ def change_status_todo(request, id_task):
             return Response(serializer.errors , status=status.HTTP_400_BAD_REQUEST)
         
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_my_info(request):
 
+    user = request.user
+
+    if request.method == 'GET':
+
+            
+        return Response({'username' : user.username , 'date_joined' : user.date_joined.strftime('%d/%m/%Y')} , status=status.HTTP_200_OK)
+
+        
 
 
 

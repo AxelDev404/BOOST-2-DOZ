@@ -39,6 +39,11 @@ function DashBoard() {
       setOpen(!open);
     };
 
+
+    const gotoUser =()=>{
+      navigate('/user');
+    }
+
     return (
       <div className="bg-black min-h-screen text-black flex" style={{ position: 'relative' }}>
         <TabContext value={value}>
@@ -59,7 +64,7 @@ function DashBoard() {
               <LogoutIcon sx={{ fontSize: 35 , color:'white' }} />
             </button>
               
-            <button className="px-4 py-2 rounded hover:bg-blue-500" title="Account">
+            <button className="px-4 py-2 rounded hover:bg-blue-500" title="Account" onClick={gotoUser}>
               <AccountCircleIcon sx={{ fontSize: 35, color: 'whitesmoke' }} />
             </button>
 

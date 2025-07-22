@@ -10,4 +10,5 @@ urlpatterns = [
     path('shared_tsk/' , views.get_shared_todo , name='get_shared_todo'),
     path('done_tsk/' , views.get_done_todo , name='get_shared_todo'),
     path('user_list/' , views.get_user_list , name='get_user_list'),
+    path('myprofile/' , views.get_my_info , name='get_my_info'),
 ]

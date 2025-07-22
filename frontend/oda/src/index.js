@@ -11,7 +11,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import DashBoard from './pages/Dashboard';
-
+import User from './pages/User';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -29,7 +29,7 @@ root.render(
         <Route element={<PrivateRoute />}>
           
           <Route path="/dashboard" element={<DashBoard />} />
-
+          <Route path="/user" element={<User/>}/>
           {/* Il resto delle rotte */}
 
         </Route>
