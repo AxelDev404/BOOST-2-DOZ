@@ -153,11 +153,35 @@ def get_my_info(request):
 
     if request.method == 'GET':
 
-            
-        return Response({'username' : user.username , 'date_joined' : user.date_joined.strftime('%d/%m/%Y')} , status=status.HTTP_200_OK)
+        return Response(
+            {
+                'username' : user.username , 
+                'date_joined' : user.date_joined.strftime('%d/%m/%Y')
+            } , status=status.HTTP_200_OK)
 
         
 
+@api_view(['PATCH'])
+@permission_classes([IsAuthenticated])
+def change_password(request):
+
+
+    if request.method == 'PATCH':
+
+        user = request.user
+        old_password = request.data.get("old_password")
+        new_password = request.data.get("new_password")
+
+        if not old_password or new_password:
+            return Response({'Message' : 'si necessitano entrmabe le password'} , status=status.HTTP_400_BAD_REQUEST)
+        
+        if not user.check_password(old_password):
+            return Response({'Message' : 'La vecchia password non combacia'} , status=status.HTTP_400_BAD_REQUEST)
+        
+        user.set_password(new_password)
+        user.save()
+
+        return Response({'Message' : 'password aggiornata con successo'} , status=status.HTTP_200_OK)
 
 
 

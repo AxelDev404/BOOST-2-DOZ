@@ -11,4 +11,5 @@ urlpatterns = [
     path('done_tsk/' , views.get_done_todo , name='get_shared_todo'),
     path('user_list/' , views.get_user_list , name='get_user_list'),
     path('myprofile/' , views.get_my_info , name='get_my_info'),
+    path('change_password/' , views.change_password , name='change_password'),
 ]
