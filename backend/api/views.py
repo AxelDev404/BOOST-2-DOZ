@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view , permission_classes
 from django.shortcuts import get_object_or_404
 from .models import Task
-from .serializers import TaskSerialized , TaskToPostSerialized , TaskSerializerDone , TaskShardSerializer , TaskFindToShareSerializer ,UserSerializer
+from .serializers import TaskSerialized , TaskToPostSerialized , TaskSerializerDone , TaskShardSerializer , TaskFindToShareSerializer ,UserSerializer , CambiaPasswordSerializer
 from rest_framework.permissions import IsAuthenticated
 from django.db.models import Q
 from django.contrib.auth.models import User
@@ -168,22 +168,14 @@ def change_password(request):
 
     if request.method == 'PATCH':
 
-        user = request.user
-        old_password = request.data.get("old_password")
-        new_password = request.data.get("new_password")
+        serializer = CambiaPasswordSerializer(data=request.data , context={'request' : request})
 
-        if not old_password or new_password:
-            return Response({'Message' : 'si necessitano entrmabe le password'} , status=status.HTTP_400_BAD_REQUEST)
-        
-        if not user.check_password(old_password):
-            return Response({'Message' : 'La vecchia password non combacia'} , status=status.HTTP_400_BAD_REQUEST)
-        
-        user.set_password(new_password)
-        user.save()
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'Messaggio' : 'password cambiata con successo'} , status=status.HTTP_200_OK)
 
-        return Response({'Message' : 'password aggiornata con successo'} , status=status.HTTP_200_OK)
-
-
+        else:
+            return Response(serializer.errors , status=status.HTTP_400_BAD_REQUEST)
 
 
 

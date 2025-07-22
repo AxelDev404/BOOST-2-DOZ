@@ -2,6 +2,38 @@ from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 from .models import Task
 from django.contrib.auth.models import User
+from django.contrib.auth.password_validation import validate_password
+
+
+
+class CambiaPasswordSerializer(serializers.Serializer):
+
+    old_password = serializers.CharField(required =  True)
+    new_password = serializers.CharField(required = True)
+    confirm_password = serializers.CharField(required = True)
+
+    def validate(self , data):
+        user = self.context['request'].user
+
+        if not user.check_password(data['old_password']):
+            raise serializers.ValidationError({'Messaggio' : 'la vecchia password non e valida'})
+        
+        if data['new_password'] != data['confirm_password']:
+            raise serializers.ValidationError({'Messaggio' : 'la nuova password non combacia alla conferma'})
+        
+        validate_password(data['new_password'] , user)
+        return data
+    
+
+    def save(self, **kwargs):
+        user = self.context['request'].user
+        user.set_password(self.validated_data['new_password'])
+        user.save()
+
+        return user
+    
+
+
 
 
 class UserSerializer(serializers.ModelSerializer):

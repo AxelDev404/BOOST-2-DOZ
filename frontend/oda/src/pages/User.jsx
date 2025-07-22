@@ -61,7 +61,7 @@ function User(){
                     'Authorization' : `Bearer ${token_access}`,
                 },
 
-                body : JSON.stringify({old_password:old_password , new_password:new_password})
+                body : JSON.stringify({old_password:old_password , new_password:new_password , confirm_password:confirm_password})
             }
 
         )
@@ -70,6 +70,9 @@ function User(){
                 setOldPassword('');
                 setNewPassword('');
                 setConfirmPassword('')
+                localStorage.removeItem('access');
+                localStorage.removeItem('refresh');
+                navigate('/')
             }
 
         )
@@ -140,6 +143,12 @@ function User(){
                             </div>
                         </div>
 
+
+
+
+                    </form>
+
+
                         <div className="mt-6">
                             
                             <button onClick={backdash} className="w-full bg-gray-700 hover:bg-gray-600 text-white font-medium py-2 px-4 rounded-lg transition duration-200 flex items-center justify-center">
@@ -151,10 +160,6 @@ function User(){
                             </button>
                         
                         </div>
-
-
-
-                    </form>
                     
                 </div>
             </div>
