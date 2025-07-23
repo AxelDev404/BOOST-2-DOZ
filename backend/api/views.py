@@ -11,6 +11,8 @@ from django.contrib.auth.models import User
 from rest_framework.parsers import MultiPartParser, FormParser
 from django.http import FileResponse
 
+
+
 @api_view(['GET'])
 def get_user_list(request):
 
@@ -227,6 +229,18 @@ def download(request , id_documento):
             return Response({'Message' : 'file non esiste'} , status=status.HTTP_400_BAD_REQUEST)
 
 
- 
- #response = 
-   # return response
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def delete_document(request , id_documento):
+
+    if request.method == 'DELETE':
+
+        try:
+            istance = get_object_or_404(Documento , id_documento=id_documento)
+            istance.delete()
+
+            return Response({'Message' : 'documento cancellato'} , status=status.HTTP_200_OK)
+
+        except Documento.DoesNotExist:
+            return Response({'Messaggio' : 'Nessun documento da cancellare'} , status=status.HTTP_400_BAD_REQUEST)
+        

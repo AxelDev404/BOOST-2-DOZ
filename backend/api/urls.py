@@ -15,4 +15,5 @@ urlpatterns = [
     path('upload_file/' , views.upload_document , name='upload_document'),
     path('get_files/' , views.get_my_files , name='get_my_files'),
     path('download/<int:id_documento>/' , views.download , name='download'),
+    path('delete_document/<int:id_documento>/' , views.delete_document, name='delete_document'),
 ]

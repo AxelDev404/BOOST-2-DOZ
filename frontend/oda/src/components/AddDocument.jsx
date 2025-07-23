@@ -51,6 +51,7 @@ function AddDocument(){
             {
                 setTitolo('');
                 setDocumento(null);
+                formData.append('documento' , null);
             }
         )
         .catch(err => console.log(err.message))
@@ -89,7 +90,7 @@ function AddDocument(){
                     </div>
 
 
-                      <div className="space-y-2">
+                    <div className="space-y-2">
                         <label className="block text-sm font-medium text-gray-300 uppercase tracking-wider">
                             Documento
                         </label>
