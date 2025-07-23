@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
-from .models import Task
+from .models import Task , Documento
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 
@@ -34,6 +34,12 @@ class CambiaPasswordSerializer(serializers.Serializer):
     
 
 
+class DocuemntoPostSerializer(serializers.ModelSerializer):
+
+    class Meta:
+
+        model = Documento
+        fields = ['titolo','documento']
 
 
 class UserSerializer(serializers.ModelSerializer):

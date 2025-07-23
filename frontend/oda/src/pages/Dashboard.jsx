@@ -14,11 +14,14 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import FilePresentIcon from '@mui/icons-material/FilePresent';
 import TabCreate from '../components/TabCreate';
 import TabToDo from '../components/TabToDo';
 import TabShare from '../components/TabShare';
 import TabDone from '../components/TabDone';
+
+
+import AddDocument from '../components/AddDocument';
 
 function DashBoard() {
     const navigate = useNavigate();
@@ -99,7 +102,7 @@ function DashBoard() {
                     <Tab icon={<FormatListBulletedAddIcon sx={{ fontSize: 35 }} />} title='add tasks' value="2" />
                     <div className="py-5"></div>
                                         
-                    <Tab icon={<PersonAddIcon sx={{ fontSize: 35 }} />} title='status tasks' value="4" />
+                    <Tab icon={<FilePresentIcon sx={{ fontSize: 35 }} />} title='status tasks' value="4" />
                     <div className="py-5"></div>
                     
                   
@@ -140,7 +143,8 @@ function DashBoard() {
 
               <TabPanel value="4" sx={{ p: 0 }}>
               
-                Contenuto 4
+                <div className='text-5xl md:text-6xl text-center py-6 font-extralight text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 tracking-wide'>UPLOAD FILES</div>
+                <AddDocument/>
               
               </TabPanel>
 

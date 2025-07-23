@@ -30,3 +30,18 @@ class Task(models.Model):
         return str(self.id_task) 
     
 
+class Documento(models.Model):
+
+    id_documento = models.AutoField(primary_key=True , auto_created=True)
+
+    titolo = models.CharField(max_length=30)
+
+    documento = models.FileField(upload_to='documents/')
+    data_caricamento = models.DateField(auto_created=True ,  auto_now_add=True)
+
+    owner = models.ForeignKey(User , on_delete=models.CASCADE , related_name='documento')
+    shared_document = models.ForeignKey(User , on_delete=models.CASCADE , blank=True, null=True , related_name='documenti')
+
+    def __str__(self,):
+        return self.titolo
+

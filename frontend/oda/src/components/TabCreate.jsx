@@ -3,8 +3,6 @@ import React, { useEffect, useState } from 'react';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 
 
-
-
 function TabCreate(){
 
     const [titolo , setTitolo] = useState('');
@@ -92,7 +90,7 @@ function TabCreate(){
     return(
 
         <div className="min-h-screen bg-black py-12 px-4 sm:px-6 lg:px-8">
-            
+
 
             <div className="text-center mb-16">
                 <h1 className="text-5xl md:text-6xl font-extralight text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 tracking-wide">

@@ -1,15 +1,14 @@
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.decorators import api_view , permission_classes
+from rest_framework.decorators import api_view , permission_classes , parser_classes
 from django.shortcuts import get_object_or_404
-from .models import Task
-from .serializers import TaskSerialized , TaskToPostSerialized , TaskSerializerDone , TaskShardSerializer , TaskFindToShareSerializer ,UserSerializer , CambiaPasswordSerializer
+from .models import Task ,Documento
+from .serializers import TaskSerialized , TaskToPostSerialized , TaskSerializerDone , TaskShardSerializer , TaskFindToShareSerializer ,UserSerializer , CambiaPasswordSerializer , DocuemntoPostSerializer
 from rest_framework.permissions import IsAuthenticated
 from django.db.models import Q
-from django.contrib.auth.models import User
-
-
+from django.contrib.auth.models import User 
+from rest_framework.parsers import MultiPartParser, FormParser
 
 @api_view(['GET'])
 def get_user_list(request):
@@ -23,7 +22,6 @@ def get_user_list(request):
 
         except User.DoesNotExist:
             return Response({'Message' : 'nessun utente esistente per la condivisione'} , status=status.HTTP_400_BAD_REQUEST)
-
 
 
 @api_view(['GET'])
@@ -92,7 +90,6 @@ def post_todo(request):
             return Response(serializer.errors , status=status.HTTP_400_BAD_REQUEST) 
 
 
-
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])
 def delete_todo(request , id_task):
@@ -109,8 +106,6 @@ def delete_todo(request , id_task):
             return Response({'Message' : 'Nessuna task trovata per questo id'} , status=status.HTTP_400_BAD_REQUEST)
 
 
-
-#
 @api_view(['PATCH'])
 @permission_classes([IsAuthenticated])
 def patch_todo(request , id_task):
@@ -160,6 +155,7 @@ def get_my_info(request):
             } , status=status.HTTP_200_OK)
 
         
+#CHANGE PASSWORD
 
 @api_view(['PATCH'])
 @permission_classes([IsAuthenticated])
@@ -179,13 +175,22 @@ def change_password(request):
 
 
 
+#DOCUMENT UPLOADING
 
-""""
-    JSON PER TESTING
-    {
-        "titolo": "Completa il report",
-        "contenuto": "Scrivere il report settimanale per il progetto X",
-        "scadenza": "2025-07-20",
-        "user": 1
-    }
-"""""
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+@parser_classes([MultiPartParser, FormParser])
+def upload_document(request):
+
+    if request.method == 'POST':
+
+        serializer = DocuemntoPostSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save(owner=request.user)
+
+            return Response(serializer.data , status=status.HTTP_200_OK)
+
+        else:
+            return Response(serializer.errors , status=status.HTTP_400_BAD_REQUEST)
+

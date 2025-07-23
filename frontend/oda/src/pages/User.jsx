@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 function User(){
 
     const token_access = localStorage.getItem('access');
@@ -13,13 +14,16 @@ function User(){
 
     useEffect(() => {
 
-        fetch(
+        fetch
+        (
+
             'api/myprofile/', 
             {
                 headers: {
                     'Authorization' : `Bearer ${token_access}`,
                 }
             }
+
         )
         .then(res => 
             {
@@ -46,37 +50,43 @@ function User(){
         if(confirm_password !== new_password){
             alert('Le nuove password non coincidono')
         }
+        else if(old_password == '' || new_password == '' || confirm_password == ''){
+            alert('assicurati di aver compilato tutti i campi')
+            navigate('/user')
+        }
+        else {
 
-        fetch
-        (
+            fetch
+            (
 
-            'api/change_password/',
-            
-            {
-                method : 'PATCH',
+                'api/change_password/',
                 
-                headers:
-                {  
-                    'Content-Type' : 'application/json',
-                    'Authorization' : `Bearer ${token_access}`,
-                },
+                {
+                    method : 'PATCH',
+                    
+                    headers:
+                    {  
+                        'Content-Type' : 'application/json',
+                        'Authorization' : `Bearer ${token_access}`,
+                    },
 
-                body : JSON.stringify({old_password:old_password , new_password:new_password , confirm_password:confirm_password})
-            }
+                    body : JSON.stringify({old_password:old_password , new_password:new_password , confirm_password:confirm_password})
+                }
 
-        )
-        .then(data => 
-            {
-                setOldPassword('');
-                setNewPassword('');
-                setConfirmPassword('')
-                localStorage.removeItem('access');
-                localStorage.removeItem('refresh');
-                navigate('/')
-            }
+            )
+            .then(data => 
+                {
+                    setOldPassword('');
+                    setNewPassword('');
+                    setConfirmPassword('')
+                    localStorage.removeItem('access');
+                    localStorage.removeItem('refresh');
+                    navigate('/')
+                }
 
-        )
-        .catch(err => console.log(err.message))
+            )
+            .catch(err => console.log(err.message))
+        }
 
     }
 
