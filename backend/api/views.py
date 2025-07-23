@@ -4,11 +4,12 @@ from rest_framework import status
 from rest_framework.decorators import api_view , permission_classes , parser_classes
 from django.shortcuts import get_object_or_404
 from .models import Task ,Documento
-from .serializers import TaskSerialized , TaskToPostSerialized , TaskSerializerDone , TaskShardSerializer , TaskFindToShareSerializer ,UserSerializer , CambiaPasswordSerializer , DocuemntoPostSerializer
+from .serializers import TaskSerialized , TaskToPostSerialized , TaskSerializerDone , TaskShardSerializer , TaskFindToShareSerializer ,UserSerializer , CambiaPasswordSerializer , DocuemntoPostSerializer , DocumentoGetSerializer
 from rest_framework.permissions import IsAuthenticated
 from django.db.models import Q
 from django.contrib.auth.models import User 
 from rest_framework.parsers import MultiPartParser, FormParser
+from django.http import FileResponse
 
 @api_view(['GET'])
 def get_user_list(request):
@@ -194,3 +195,38 @@ def upload_document(request):
         else:
             return Response(serializer.errors , status=status.HTTP_400_BAD_REQUEST)
 
+ 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_my_files(request):
+
+    try : 
+
+        doc = Documento.objects.filter(owner = request.user).order_by('data_caricamento')
+        serializer = DocumentoGetSerializer(doc , many=True)
+
+        return Response(serializer.data , status=status.HTTP_200_OK)
+
+    except Documento.DoesNotExist:
+        return Response({'Message' : 'documento non esiste'} , status=status.HTTP_400_BAD_REQUEST)
+ 
+ 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def download(request , id_documento):
+
+    if request.method == 'GET':
+
+        try : 
+            doc = Documento.objects.get(owner = request.user , id_documento=id_documento)
+            
+            return FileResponse(doc.documento.open('rb'), as_attachment=True, filename=doc.documento.name)
+
+        except Documento.DoesNotExist:
+            
+            return Response({'Message' : 'file non esiste'} , status=status.HTTP_400_BAD_REQUEST)
+
+
+ 
+ #response = 
+   # return response

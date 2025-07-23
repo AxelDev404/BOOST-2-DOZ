@@ -19,9 +19,10 @@ import TabCreate from '../components/TabCreate';
 import TabToDo from '../components/TabToDo';
 import TabShare from '../components/TabShare';
 import TabDone from '../components/TabDone';
-
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
 
 import AddDocument from '../components/AddDocument';
+import Download from '../components/Download';
 
 function DashBoard() {
     const navigate = useNavigate();
@@ -105,6 +106,8 @@ function DashBoard() {
                     <Tab icon={<FilePresentIcon sx={{ fontSize: 35 }} />} title='status tasks' value="4" />
                     <div className="py-5"></div>
                     
+                    <Tab icon={<FileDownloadIcon sx={{ fontSize: 35 }} />} title='status tasks' value="6" />
+                    <div className="py-5"></div>
                   
 
                   </TabList>
@@ -154,6 +157,15 @@ function DashBoard() {
                 <div className='text-5xl md:text-6xl text-center py-6 font-extralight text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 tracking-wide'>SHARED TASKS</div>
 
                 <TabShare/>
+              
+              </TabPanel>
+
+
+              <TabPanel value="6" sx={{ p: 0 }}>
+                
+                <div className='text-5xl md:text-6xl text-center py-6 font-extralight text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 tracking-wide'>YOUR FILES</div>
+
+               <Download/>
               
               </TabPanel>
 

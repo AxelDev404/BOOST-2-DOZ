@@ -13,4 +13,6 @@ urlpatterns = [
     path('myprofile/' , views.get_my_info , name='get_my_info'),
     path('change_password/' , views.change_password , name='change_password'),
     path('upload_file/' , views.upload_document , name='upload_document'),
+    path('get_files/' , views.get_my_files , name='get_my_files'),
+    path('download/<int:id_documento>/' , views.download , name='download'),
 ]

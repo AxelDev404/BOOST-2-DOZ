@@ -42,6 +42,21 @@ class DocuemntoPostSerializer(serializers.ModelSerializer):
         fields = ['titolo','documento']
 
 
+class DocumentoGetSerializer(serializers.ModelSerializer):
+
+    class Meta:
+
+        model = Documento
+
+        fields = (
+            'id_documento',
+            'titolo',
+            'documento'
+        )
+
+        read_only_fields = ['user']
+
+
 class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
