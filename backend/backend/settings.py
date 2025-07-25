@@ -112,10 +112,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'mssql',
         'NAME': 'todo',
-        'HOST': 'localhost',     #localhost\\SQLEXPRESS  rimettere se passi al server locale al posto dell'IP 192.168.1.33
-        'PORT': '',             #da togliere il numero porta se passi al server locale 1433
-        'USER': '',       #togliere la riga se passi in server locale o commentala senza eliminarla managri ALEX dato che poi in futuro servira molto probabilmente
-        'PASSWORD': '',     #togliere la riga se passi in server locale o commentala senza eliminarla managri ALEX dato che poi in futuro servira molto probabilmente
+        'HOST': 'localhost',     #localhost\\SQLEXPRESS  
+        'PORT': '',            
+        'USER': '',       
+        'PASSWORD': '',    
         'OPTIONS': {
             'driver': 'ODBC Driver 18 for SQL Server',
             'trusted_connection': 'yes',
